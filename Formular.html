@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<head>
+	<style type="text/css">
+		input.ng-touched.ng-invalid {border:solid red 2px;}
+        input.ng-touched.ng-valid {border:solid green 2px;}
+	</style>
+</head>
+<body>
+	
+   <div ng-app="myApp" ng-controller="formCtrl">
+     <form nonvalidate>
+    Numele:<br>
+    <input type="text" ng-model="Name"><br><br>
+    
+    Prenumele:<br>
+    <input type="text" ng-model="Prename"><br><br>
+    
+     Data nasterii:<br>
+    <input type="date" ng-model="data"><br><br>
+    
+    Facultatea:
+  <input type="radio" ng-model="myVar" value="Fizica">Fizica
+  <input type="radio" ng-model="myVar" value="Informatică">Informatică
+  <input type="radio" ng-model="myVar" value="Matematică">Matematică
+  <input type="radio" ng-model="myVar" value="Biologie">Biologie
+  <br><br>
+  
+  Obiectul predarii:
+  <select ng-model="obiect">
+    <option value="">
+    <option value="Chimia organica">Chimia organica
+    <option value="Informatica">Informatica
+    <option value="Matematica">Matematica
+    <option value="Biologia">Biologia
+  </select><br><br>
+    
+   <p><b> Daca nu ati convenit cu salariul no sa puteti confirma formularul</p> 
+   Daca ati convenit dezbifati apoi introduceti salariul -></b><input type="checkbox" ng-model="checked"></label><br/>
+    <br>
+    Salariul asteptat:<br>
+    <input type="number"  ng-model="sal"><br><br>
+    <br>
+    
+    <button ng-model="button" ng-disabled="checked" ng-click="submit()">Confirma</button>
+    <button type="reset "ng-click="reset()">Anuleaza</button>
+   
+
+ <div ng-show="afisare"> 
+    <h3>Rezultatul :</h3> 
+    
+    <p>Nume: {{Name}} </p>
+    <p>Prenume : {{Prename}}</p>
+    <p> Datat nasterii :{{ data | date:' dd, MM, y'}}</p>
+    <p> Facultatea : {{myVar}} <p>
+    <p> Obiectul predarii : {{obiect}} <p>
+    <p> Salariul asteptat : {{sal}} <p> 
+    <p ng-if="sal>5000" style="color:Tomato;"><i> EXAGERAT!!!</i> </p>
+    <p ng-if="sal<3000" style="color:Tomato;"><i> Va subestimati!!!</i> </p>
+    </div>
+</div>
+    
+<script>
+var app = angular.module('myApp', []);
+app.controller('formCtrl', function($scope) {
+  $scope.afisare=false;
+  $scope.checked=true;
+    $scope.reset = function() {
+        $scope.Name = $scope.Prename='';
+        $scope.data = $scope.myVar='';
+        $scope.obiect = $scope.sal='';
+    };
+    $scope.submit=function(sal){
+    $scope.afisare=!$scope.afisare;
+   };
+});
+</script>
+
+
+</body>
+</html>
